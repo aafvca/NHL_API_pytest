@@ -3,6 +3,14 @@ import pytest
 
 # class TestStableTeam():
 
-print(api_ops.findRoster("20162017"))
-print(api_ops.findRoster("20172018"))
+roster_season1 = api_ops.findRoster(config.season1)
+roster_season2 = api_ops.findRoster(config.season2)
+print(roster_season1)
+print(roster_season2)
 
+playersInBoth = api_ops.compare_two_rosters(roster_season1,roster_season2)
+
+if playersInBoth > 0:
+    print("There are " + str(playersInBoth) + " players in both seasons")
+else:
+    print("None of the players continue the next season")

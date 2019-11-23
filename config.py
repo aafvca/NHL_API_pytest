@@ -1,5 +1,7 @@
 teams_url =  "https://statsapi.web.nhl.com/api/v1/teams"
 people_url =  "https://statsapi.web.nhl.com/api/v1/people"
+season1 = "20162017"
+season2 = "20172018"
 mtl_roster_1617 =  "/8?expand=team.roster&season=20162017"
 mtl_roster_1718 =  "/8?expand=team.roster&season=20172018"
 mtl_roster_ep = "/8?expand=team.roster&season="

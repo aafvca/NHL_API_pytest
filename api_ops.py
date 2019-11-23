@@ -16,3 +16,10 @@ def findRoster(season):
     team_roster = expression.search(team_info)
     assert len(team_roster) != 0
     return team_roster
+
+def compare_two_rosters(roster1, roster2):
+    playersInBoth = 0
+    for player in roster1:
+        if player in roster2:
+            playersInBoth += 1
+    return playersInBoth
