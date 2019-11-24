@@ -15,6 +15,6 @@ positions_team = api_ops.get_player_position_team(config.season2)
 different_positions = api_ops.compare_two_positions(position_people,positions_team)
 
 if different_positions == 0:
-    print("The positions in both API's match")
+    print("The players positions in both API's match")
 else:
     print("There is a mismatch between both API's")
