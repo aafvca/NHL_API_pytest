@@ -1,3 +1,4 @@
+team = "Montréal Canadiens"
 teams_url =  "https://statsapi.web.nhl.com/api/v1/teams"
 people_url =  "https://statsapi.web.nhl.com/api/v1/people/"
 stats_single_season_url = "/stats?stats=statsSingleSeason&season="
