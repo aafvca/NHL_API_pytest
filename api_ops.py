@@ -31,11 +31,20 @@ def get_stats_url(season, player_id_list):
         stats_url.append(player_stats_url)
     return stats_url
 
-def get_flat_list(mylist):
+def get_flat_list_int(mylist):
     flat_list = []
     for sublist in mylist:
         if len(sublist)== 0:
             sublist.append(0)
+        for item in sublist:
+            flat_list.append(item)
+    return flat_list
+
+def get_flat_list_str(mylist):
+    flat_list = []
+    for sublist in mylist:
+        if len(sublist) == 0:
+            sublist.append('N/A')
         for item in sublist:
             flat_list.append(item)
     return flat_list
@@ -47,7 +56,7 @@ def get_player_points(player_urls):
         expression = jmespath.compile(config.jp_get_points)
         points = expression.search(player_stats)
         player_points_list.append(points)
-        player_points = get_flat_list(player_points_list)
+        player_points = get_flat_list_int(player_points_list)
     return player_points
 
 def get_player_improve(stat_list1, stat_list2):
@@ -67,3 +76,47 @@ def get_roster_total(stat_list1):
     for stat in stat_list1:
         total_stat += stat
     return total_stat
+
+def get_player_team(player_list):
+    player_team = []
+    player_team_list = []
+    expression = jmespath.compile(config.jp_get_team)
+    for player in player_list:
+        player_info = get_response(config.people_url + str(player))
+        team = expression.search(player_info)
+        player_team_list.append(team)
+        player_team = get_flat_list_str(player_team_list)
+    return player_team
+
+def compare_teams(team_name, team_list):
+    differences = 0
+    for team in team_list:
+        if team != team_name:
+            differences +=1
+    return differences
+
+def get_player_position_people(player_list):
+    player_position = []
+    player_position_list = []
+    expression = jmespath.compile((config.jp_get_position_people))
+    for player in player_list:
+        player_info = get_response(config.people_url + str(player))
+        position = expression.search(player_info)
+        player_position_list.append((position))
+        player_position = get_flat_list_str(player_position_list)
+    return player_position
+
+def get_player_position_team(season):
+    expression = jmespath.compile(config.jp_get_position_team)
+    url = config.teams_url + config.mtl_roster_ep + season
+    roster_info = get_response(url)
+    player_position = expression.search(roster_info)
+    return player_position
+
+def compare_two_positions(positions1, positions2):
+    different_position = 0
+    for position in positions1:
+        if position not in positions2:
+            different_position +=1
+    return different_position
+
